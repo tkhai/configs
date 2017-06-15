@@ -118,5 +118,18 @@ autocmd VimEnter * call VimEnter()
 " Build on <F2> key press
 nnoremap <F2> :silent !echo "\# make -j20"<CR>:make! -j20<CR>
 
+" Spell check on <F3> key press
+function Spell_Toggle()
+	if (&spell != 'nospell')
+		set nospell
+		set spelllang=
+	else
+		set spell
+		set spelllang=en_us,ru_ru
+	endif
+endfunction
+command SpellToggle call Spell_Toggle()
+nnoremap <F3> :SpellToggle<CR>
+
 " Commit SOB
 nnoremap me sSigned-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>
