@@ -7,7 +7,6 @@ set imap_user="$my_login@$my_hostname"
 set imap_pass=$my_password
 
 set folder="imaps://outlook.office365.com/"
-set mbox_type=Maildir
 set spoolfile= +INBOX
 set postponed= +Drafts
 set record = +INBOX
