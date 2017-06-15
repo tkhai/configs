@@ -51,7 +51,7 @@ set reverse_name = yes
 set reverse_realname = yes
 
 # Text editor
-set editor='vim -c "set spell spelllang=en_us,ru_ru"'
+set editor="vim"
 
 # Adress book handling
 set sort_alias=alias
@@ -99,7 +99,7 @@ bind	pager	w		previous-page
 
 ## Colors
 color	index		blue default		~D  # Deleted
-color	index		red default		~N # New
+color	index		red default		~N  # New
 color	normal		white default
 color	attachment	brightyellow default
 color	hdrdefault	cyan default
