@@ -7,6 +7,7 @@ set imap_user="$my_login@$my_hostname"
 set imap_pass=$my_password
 
 set folder="imaps://outlook.office365.com/"
+set mbox_type=Maildir
 set spoolfile= +INBOX
 set postponed= +Drafts
 set record = +INBOX
@@ -20,6 +21,7 @@ set mail_check=60
 set imap_keepalive=900
 set imap_idle
 unset mark_old
+unset imap_passive
 set ssl_use_sslv3=yes
 
 # SMTP config
@@ -32,6 +34,7 @@ set smtp_url = "smtp://$my_login@$my_hostname@outlook.office365.com:587"
 set ssl_force_tls = yes
 set ssl_starttls = yes
 set smtp_authenticators = "login"
+set sleep_time=0
 
 ## More settings
 
@@ -74,6 +77,7 @@ macro	index	gi		"<change-folder>=INBOX<enter>"		"Go to Inbox"
 macro	index	gs		"<change-folder>=$my_sent<enter>"	"Go to Sent"
 macro	index	gd		"<change-folder>=$my_drafts<enter>"	"Go to Drafts"
 macro	index	gt		"<change-folder>=$my_trash<enter>"	"Go to Trash"
+macro	index	c		"<change-folder>?"
 
 # Index
 bind	index	<up>		previous-entry
