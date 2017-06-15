@@ -1,0 +1,133 @@
+## Server config
+
+source "~/.mutt/user"
+
+# IMAP config
+set imap_user="$my_login@$my_hostname"
+set imap_pass=$my_password
+
+set folder="imaps://outlook.office365.com/"
+set spoolfile= +INBOX
+set postponed= +Drafts
+set record = +INBOX
+set trash = +Trash
+mailboxes
+
+set imap_check_subscribed=yes
+set imap_list_subscribed=yes
+set timeout=10
+set mail_check=60
+set imap_keepalive=900
+set imap_idle
+unset mark_old
+set ssl_use_sslv3=yes
+
+# SMTP config
+set realname = "Kirill Tkhai"
+set from = "$my_login@$my_hostname"
+set use_from=yes
+set smtp_pass = $my_password
+set hostname = $my_hostname
+set smtp_url = "smtp://$my_login@$my_hostname@outlook.office365.com:587"
+set ssl_force_tls = yes
+set ssl_starttls = yes
+set smtp_authenticators = "login"
+
+## More settings
+
+# File storage settings
+
+set signature="~/.mutt/signature"
+set message_cachedir="~/.mutt/message_cache"
+set header_cache="~/.mutt/header_cache"
+set tmpdir="~/.mutt/tmp"
+
+# Text view first
+set pager_stop="yes"
+set smart_wrap="yes"
+alternative_order text/plain
+auto_view text/html
+set reverse_name = yes
+set reverse_realname = yes
+
+# Text editor
+set editor='vim -c "set spell spelllang=en_us,ru_ru"'
+
+# Adress book handling
+set sort_alias=alias
+set reverse_alias=yes
+set alias_file="~/.mutt/aliases"
+
+# Thread ordering
+set sort = 'threads'
+set sort_browser="reverse-date"
+set sort_aux="reverse-last-date-received"
+unset collapse_unread
+set date_format="!%a, %b %d, %Y at %H:%M"
+set index_format=" %?M?   ↳&%4C?   %Z      %D     %-15.15n    %s"
+
+## Key bindings
+
+# Mailboxes
+bind	index	G		imap-fetch-mail
+macro	index	gi		"<change-folder>=INBOX<enter>"		"Go to Inbox"
+macro	index	gs		"<change-folder>=$my_sent<enter>"	"Go to Sent"
+macro	index	gd		"<change-folder>=$my_drafts<enter>"	"Go to Drafts"
+macro	index	gt		"<change-folder>=$my_trash<enter>"	"Go to Trash"
+
+# Index
+bind	index	<up>		previous-entry
+bind	index	<down>		next-entry
+bind	index	<delete>	delete-message
+bind	index	n		next-entry
+bind	index	p		previous-entry
+bind	index	C		noop
+bind	index	-		collapse-thread
+bind	index	_		collapse-all
+
+# Pager
+bind	pager	<up>		previous-line
+bind	pager	<down>		next-line
+bind	pager	<left>		previous-entry
+bind	pager	<right>		next-entry
+bind	pager	<delete>	delete-message
+bind	pager	k		previous-line
+bind	pager	j		next-line
+bind	pager	n		next-entry
+bind	pager	p		previous-entry
+bind	pager	w		previous-page
+
+## Colors
+color	index		blue default		~D  # Deleted
+color	index		red default		~N # New
+color	normal		white default
+color	attachment	brightyellow default
+color	hdrdefault	cyan default
+color	indicator	black cyan
+color	markers		brightred default
+color	quoted		green default
+color	signature	cyan default
+color	status		brightgreen blue
+color	tilde		blue default
+color	tree		red default
+color	header		brightgreen default	^From:
+color	header		brightcyan default	^To:
+color	header		brightcyan default	^Reply-To:
+color	header		brightcyan default	^Cc:
+color	header		brightblue default	^Subject:
+color	body		brightred default	[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+color	body		brightblue default	(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+
+# Diff highlight
+color	body		brightwhite default	"^diff \-.*"
+color	body		brightwhite default	"^index [a-f0-9].*"
+color	body		green default		"^[\+].*"
+color	body		red default		"^[\-].*"
+color	body		brightwhite default	"^[\-]{3} .*"
+color	body		brightwhite default	"^[\+]{3} .*"
+color	body		brightwhite default	"^---$"
+color	body		brightblue default	"^@@ .*"
+color	body		brightwhite default	"^Signed-off-by:.*"
+color	body		brightwhite default	"^CC:.*"
+color	body		brightwhite default	"^Acked-by:.*"
+color	body		brightwhite default	"^Reviewed-by:.*"
