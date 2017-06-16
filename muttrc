@@ -33,9 +33,11 @@ set smtp_url = "smtp://$my_login@$my_hostname@outlook.office365.com:587"
 set ssl_force_tls = yes
 set ssl_starttls = yes
 set smtp_authenticators = "login"
-set sleep_time=0
 
 ## More settings
+
+set sleep_time=0
+set quit=ask-yes
 
 # File storage settings
 
