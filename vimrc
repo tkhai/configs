@@ -131,5 +131,8 @@ endfunction
 command SpellToggle call Spell_Toggle()
 nnoremap <F3> :SpellToggle<CR>
 
+" git log -p on <F4> key press
+nnoremap <F4> :silent !git log -p %<CR>:redraw!<CR>
+
 " Commit SOB
 nnoremap me sSigned-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>
