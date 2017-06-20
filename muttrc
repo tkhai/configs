@@ -16,7 +16,7 @@ mailboxes
 set imap_check_subscribed=yes
 set imap_list_subscribed=yes
 set timeout=10
-set mail_check=60
+set mail_check=30
 set imap_keepalive=900
 set imap_idle
 unset mark_old
@@ -137,4 +137,4 @@ color	body		brightwhite default	"^CC:.*"
 color	body		brightwhite default	"^Acked-by:.*"
 color	body		brightwhite default	"^Reviewed-by:.*"
 # Mutt highlights closing bracket as "quoted" by default, fix that:
-color	body		default default		"^ ([\t]+?|)}.*"
+color	body		default default		"^ ([\t]+|[ ]+|)}.*"
