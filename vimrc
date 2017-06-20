@@ -132,7 +132,7 @@ command SpellToggle call Spell_Toggle()
 nnoremap <F3> :SpellToggle<CR>
 
 " git log -p on <F4> key press
-nnoremap <F4> :silent !git log -p %<CR>:redraw!<CR>
+nnoremap <F4> :silent !echo "\# git log -p --no-merges %"<CR>:!git log -p --no-merges %<CR>:redraw!<CR>
 
 " git blame on <F5> key press
 nnoremap <F5> :silent !echo "\# git blame %"<CR>:!git blame %<CR>:redraw!<CR>
