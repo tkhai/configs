@@ -120,8 +120,8 @@ color	header		brightcyan default	^To:
 color	header		brightcyan default	^Reply-To:
 color	header		brightcyan default	^Cc:
 color	header		brightblue default	^Subject:
-color	body		brightred default	[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
-color	body		brightblue default	(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+color	body		brightred default	"[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+"
+color	body		brightblue default	"(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+"
 
 # Diff highlight
 color	body		brightwhite default	"^diff \-.*"
@@ -136,3 +136,5 @@ color	body		brightwhite default	"^Signed-off-by:.*"
 color	body		brightwhite default	"^CC:.*"
 color	body		brightwhite default	"^Acked-by:.*"
 color	body		brightwhite default	"^Reviewed-by:.*"
+# Mutt highlights closing bracket as "quoted" by default, fix that:
+color	body		default default		"^ ([\t]+?|)}.*"
