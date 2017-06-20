@@ -134,5 +134,8 @@ nnoremap <F3> :SpellToggle<CR>
 " git log -p on <F4> key press
 nnoremap <F4> :silent !git log -p %<CR>:redraw!<CR>
 
+" git blame on <F5> key press
+nnoremap <F5> :silent !echo "\# git blame %"<CR>:!git blame %<CR>:redraw!<CR>
+
 " Commit SOB
 nnoremap me sSigned-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>
