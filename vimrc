@@ -118,7 +118,7 @@ autocmd VimEnter * call VimEnter()
 " Build on <F2> key press
 function! Run_Make()
 	silent !echo "\# make -j20"
-	make! -j20
+	make! -j20 | silent !echo 
 	"Get number of recognized error messages
 	let err = len(filter(getqflist(), 'v:val.valid'))
 	if err != 0
@@ -143,10 +143,10 @@ command SpellToggle call Spell_Toggle()
 nnoremap <F3> :SpellToggle<CR>
 
 " git log -p on <F4> key press
-nnoremap <F4> :silent !echo "\# git log -p --no-merges %"<CR>:!git log -p --no-merges %<CR>:redraw!<CR>
+nnoremap <F4> :silent !echo "\# git log -p --no-merges %"<CR>:!git log -p --no-merges %<CR>:silent !echo<CR>:redraw!<CR>
 
 " git blame on <F5> key press
-nnoremap <F5> :silent !echo "\# git blame %"<CR>:!git blame %<CR>:redraw!<CR>
+nnoremap <F5> :silent !echo "\# git blame %"<CR>:!git blame %<CR>:silent !echo<CR>:redraw!<CR>
 
 " Commit SOB
 nnoremap me sSigned-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>
