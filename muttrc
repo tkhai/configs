@@ -23,6 +23,8 @@ set imap_idle
 unset mark_old
 set imap_passive
 set ssl_use_sslv3=yes
+set imap_pipeline_depth=0
+set connect_timeout=300
 
 # SMTP config
 set realname = "Kirill Tkhai"
@@ -39,6 +41,7 @@ set smtp_authenticators = "login"
 
 set sleep_time=0
 set quit=ask-yes
+set askcc=yes
 
 # File storage settings
 
@@ -66,7 +69,7 @@ set alias_file="~/.mutt/aliases"
 # Thread ordering
 set sort = "threads"
 set sort_browser="reverse-date"
-set sort_aux="reverse-last-date-received"
+set sort_aux="reverse-last-date-sent"
 unset collapse_unread
 set date_format="!%a, %b %d, %Y at %H:%M"
 set index_format=" %?M?   ↳&%4C?   %Z      %D     %-15.15n    %s"
