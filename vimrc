@@ -116,7 +116,18 @@ endfunction
 autocmd VimEnter * call VimEnter()
 
 " Build on <F2> key press
-nnoremap <F2> :silent !echo "\# make -j20"<CR>:make! -j20<CR>
+function! Run_Make()
+	silent !echo "\# make -j20"
+	make! -j20
+	"Get number of recognized error messages
+	let err = len(filter(getqflist(), 'v:val.valid'))
+	if err != 0
+		copen
+		cc
+	endif
+endfunction
+command RunMake call Run_Make()
+nnoremap <F2> :RunMake<CR>
 
 " Spell check on <F3> key press
 function Spell_Toggle()
