@@ -16,6 +16,7 @@ mailboxes
 set imap_check_subscribed=yes
 set imap_list_subscribed=yes
 set timeout=10
+timeout-hook	"exec sync-mailbox buffy-list"
 set mail_check=60
 set imap_keepalive=10
 set imap_idle
