@@ -142,11 +142,15 @@ endfunction
 command SpellToggle call Spell_Toggle()
 nnoremap <F3> :SpellToggle<CR>
 
-" git log -p on <F4> key press
-nnoremap <F4> :silent !echo "\# git log -p --no-merges %"<CR>:!git log -p --no-merges %<CR>:silent !echo<CR>:redraw!<CR>
+" git diff on <F4> key press
+nnoremap <F4> :silent !echo "\# git diff"<CR>:!git diff<CR>:silent !echo<CR>:redraw!<CR>
 
-" git blame on <F5> key press
-nnoremap <F5> :silent !echo "\# git blame %"<CR>:!git blame %<CR>:silent !echo<CR>:redraw!<CR>
+" git log -p on <F5> key press
+nnoremap <F5> :silent !echo "\# git log -p --no-merges %"<CR>:!git log -p --no-merges %<CR>:silent !echo<CR>:redraw!<CR>
+nnoremap <A-S-F5> :silent !echo "\# git log -p --no-merges "<CR>:!git log -p --no-merges <CR>:silent !echo<CR>:redraw!<CR>
+
+" git blame on <F6> key press
+nnoremap <F6> :silent !echo "\# git blame %"<CR>:!git blame %<CR>:silent !echo<CR>:redraw!<CR>
 
 " Commit SOB
 nnoremap me sSigned-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>
