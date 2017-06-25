@@ -61,6 +61,9 @@ set viminfo='20,<1000
 let g:netrw_list_hide = '^\./$'
 let g:netrw_hide = 1
 
+" Open quickfix window of full width
+autocmd FileType qf wincmd J
+
 " Add header directories to paths to allow open included files
 " using standard "gf" (go back is "Ctrl+^")
 if isdirectory($PWD . "/.git")
@@ -81,7 +84,7 @@ function! QF_PostGrep()
     unlet g:Ggrep_pattern
   endif
   " Open QuickFix window
-  cwindow
+  copen
 endfunction
 autocmd QuickFixCmdPost *grep* call QF_PostGrep()
 
@@ -151,7 +154,7 @@ nnoremap <F4> :silent !echo "\# git diff"<CR>:silent !git --no-pager diff --colo
 
 " git log -p on <F5> key press
 nnoremap <F5> :silent !echo "\# git log -p --no-merges %"<CR>:!git log -p --no-merges %<CR>:silent !echo<CR>:redraw!<CR>
-nnoremap <A-S-F5> :silent !echo "\# git log -p --no-merges "<CR>:!git log -p --no-merges <CR>:silent !echo<CR>:redraw!<CR>
+nnoremap <S-F5> :silent !echo "\# git log -p --no-merges "<CR>:!git log -p --no-merges <CR>:silent !echo<CR>:redraw!<CR>
 
 " git blame on <F6> key press
 nnoremap <F6> :silent !echo "\# git blame %"<CR>:!git blame %<CR>:silent !echo<CR>:redraw!<CR>
