@@ -147,7 +147,7 @@ command SpellToggle call Spell_Toggle()
 nnoremap <F3> :SpellToggle<CR>
 
 " git diff on <F4> key press
-nnoremap <F4> :silent !echo "\# git diff"<CR>:silent !git diff<CR>:!echo<CR>
+nnoremap <F4> :silent !echo "\# git diff"<CR>:silent !git --no-pager diff --color=always \| less -r<CR>:silent !echo<CR>:redraw!<CR>
 
 " git log -p on <F5> key press
 nnoremap <F5> :silent !echo "\# git log -p --no-merges %"<CR>:!git log -p --no-merges %<CR>:silent !echo<CR>:redraw!<CR>
