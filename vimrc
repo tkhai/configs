@@ -57,6 +57,10 @@ endif
 
 set viminfo='20,<1000
 
+" Hide "." in file browser
+let g:netrw_list_hide = '^\./$'
+let g:netrw_hide = 1
+
 " Add header directories to paths to allow open included files
 " using standard "gf" (go back is "Ctrl+^")
 if isdirectory($PWD . "/.git")
@@ -143,7 +147,7 @@ command SpellToggle call Spell_Toggle()
 nnoremap <F3> :SpellToggle<CR>
 
 " git diff on <F4> key press
-nnoremap <F4> :silent !echo "\# git diff"<CR>:!git diff<CR>:silent !echo<CR>:redraw!<CR>
+nnoremap <F4> :silent !echo "\# git diff"<CR>:silent !git diff<CR>:!echo<CR>
 
 " git log -p on <F5> key press
 nnoremap <F5> :silent !echo "\# git log -p --no-merges %"<CR>:!git log -p --no-merges %<CR>:silent !echo<CR>:redraw!<CR>
