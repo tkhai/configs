@@ -23,8 +23,8 @@ set imap_idle
 unset mark_old
 set imap_passive
 set ssl_use_sslv3=yes
-set imap_pipeline_depth=0
-set connect_timeout=300
+#set imap_pipeline_depth=0
+set connect_timeout=-1
 
 # SMTP config
 set realname = "Kirill Tkhai"
@@ -48,6 +48,7 @@ set askcc=yes
 set signature="~/.mutt/signature"
 set message_cachedir="~/.mutt/message_cache"
 set header_cache="~/.mutt/header_cache"
+set maildir_header_cache_verify=yes
 set tmpdir="~/.mutt/tmp"
 
 # Text view first
@@ -100,8 +101,10 @@ bind	pager	<right>		next-entry
 bind	pager	<delete>	delete-message
 
 ## Colors
+color	index		brightyellow default	"~(!~T)~P" # From me
 color	index		blue default		~D  # Deleted
 color	index		red default		~N  # New
+color	index		brightgreen default	~T  # Tagged
 color	normal		white default
 color	attachment	brightyellow default
 color	hdrdefault	cyan default
