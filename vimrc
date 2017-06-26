@@ -61,8 +61,8 @@ set viminfo='20,<1000
 let g:netrw_list_hide = '^\./$'
 let g:netrw_hide = 1
 
-" Open quickfix window of full width
-autocmd FileType qf wincmd J
+" Set window size 100
+nnoremap <C-v> :vertical resize 100<CR>
 
 " Add header directories to paths to allow open included files
 " using standard "gf" (go back is "Ctrl+^")
@@ -104,6 +104,9 @@ endfunction
 command CToggle call QF_Toggle()
 nnoremap q :CToggle<CR>
 
+" Open quickfix window of full width
+autocmd FileType qf wincmd J
+
 " Shortcut to simplify navigation using unimpaired.vim plugin:
 " previous ',' and next '.' results
 map , [q
@@ -121,6 +124,9 @@ function! VimEnter()
 	map Q :qa<CR>
 endfunction
 autocmd VimEnter * call VimEnter()
+
+" Show map page on <Ctrl-m>
+nnoremap <C-m> :silent !man <cword><CR>:redraw!<CR>
 
 " Build on <F2> key press
 function! Run_Make()
@@ -150,7 +156,7 @@ command SpellToggle call Spell_Toggle()
 nnoremap <F3> :SpellToggle<CR>
 
 " git diff on <F4> key press
-nnoremap <F4> :silent !echo "\# git diff"<CR>:silent !git --no-pager diff --color=always \| less -r<CR>:silent !echo<CR>:redraw!<CR>
+nnoremap <F4> :silent !echo "\# git diff"<CR>:silent !git --no-pager diff --color=always \| less -R<CR>:silent !echo<CR>:redraw!<CR>
 
 " git log -p on <F5> key press
 nnoremap <F5> :silent !echo "\# git log -p --no-merges %"<CR>:!git log -p --no-merges %<CR>:silent !echo<CR>:redraw!<CR>
