@@ -159,8 +159,16 @@ nnoremap <F3> :SpellToggle<CR>
 nnoremap <F4> :silent !echo "\# git diff"<CR>:silent !git --no-pager diff --color=always \| less -R<CR>:silent !echo<CR>:redraw!<CR>
 
 " git log -p on <F5> key press
-nnoremap <F5> :silent !echo "\# git log -p --no-merges %"<CR>:!git log -p --no-merges %<CR>:silent !echo<CR>:redraw!<CR>
-nnoremap <S-F5> :silent !echo "\# git log -p --no-merges "<CR>:!git log -p --no-merges <CR>:silent !echo<CR>:redraw!<CR>
+function GitLog_With_Prefix(arg)
+	let cmd = "git log -p --no-merges " . a:arg
+	execute "silent !echo " . '\\# ' . cmd
+	execute "silent !" . cmd
+	execute "echo"
+	redraw!
+endfunction
+nnoremap <F5> :call GitLog_With_Prefix("%")<CR>
+nnoremap <S-F5> :call GitLog_With_Prefix("--full-diff " . "%")<CR>
+nnoremap <A-S-F5> :call GitLog_With_Prefix(".")<CR>
 
 " git blame on <F6> key press
 nnoremap <F6> :silent !echo "\# git blame %"<CR>:!git blame %<CR>:silent !echo<CR>:redraw!<CR>
