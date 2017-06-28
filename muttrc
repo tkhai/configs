@@ -54,7 +54,7 @@ set tmpdir="~/.mutt/tmp"
 # Text view first
 set pager_stop="yes"
 set smart_wrap="yes"
-alternative_order text/plain
+alternative_order text/plain text/enriched text/html
 auto_view text/html
 set reverse_name = yes
 set reverse_realname = yes
@@ -79,10 +79,6 @@ set index_format=" %?M?   ↳&%4C?   %Z      %D     %-15.15n    %s"
 
 # Mailboxes
 bind	index	G		imap-fetch-mail
-macro	index	gi		"<change-folder>=INBOX<enter>"		"Go to Inbox"
-macro	index	gs		"<change-folder>=$my_sent<enter>"	"Go to Sent"
-macro	index	gd		"<change-folder>=$my_drafts<enter>"	"Go to Drafts"
-macro	index	gt		"<change-folder>=$my_trash<enter>"	"Go to Trash"
 macro	index	c		"<change-folder>?"
 
 # Index
@@ -140,5 +136,6 @@ color	body		brightwhite default	"^Signed-off-by:.*"
 color	body		brightwhite default	"^CC:.*"
 color	body		brightwhite default	"^Acked-by:.*"
 color	body		brightwhite default	"^Reviewed-by:.*"
-# Mutt highlights closing bracket as "quoted" by default, fix that:
+# Mutt highlights closing bracket and " #" as "quoted" by default, fix that:
 color	body		default default		"^ ([\t]+|[ ]+|)}.*"
+color	body		default default		"^ #.*"
