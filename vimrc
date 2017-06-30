@@ -61,8 +61,14 @@ set viminfo='20,<1000
 let g:netrw_list_hide = '^\./$'
 let g:netrw_hide = 1
 
-" Set window size 100
-nnoremap <C-v> :vertical resize 100<CR>
+" Make window size a partial of full size
+function! Set_Active_Window_Width()
+	let c = float2nr(&columns / 1.61803398875)
+	execute "vertical resize" . c
+endfunction
+nnoremap <C-v> :call Set_Active_Window_Width()<CR>
+" Resize window on entering
+autocmd WinEnter * if getbufvar(winbufnr(winnr()), '&buftype') != 'quickfix' | call Set_Active_Window_Width() | endif
 
 " Add header directories to paths to allow open included files
 " using standard "gf" (go back is "Ctrl+^")
