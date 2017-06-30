@@ -61,6 +61,17 @@ set viminfo='20,<1000
 let g:netrw_list_hide = '^\./$'
 let g:netrw_hide = 1
 
+" Returns winnr() of QuickFix window
+function! Get_QF_Window_Id()
+	for i in range(1, winnr('$'))
+		let bnum = winbufnr(i)
+		if getbufvar(bnum, '&buftype') == 'quickfix'
+			return i
+		endif
+	endfor
+	return -1
+endfunction
+
 " Make window size a partial of full size
 function! Set_Active_Window_Width()
 	let c = float2nr(&columns / 1.61803398875)
@@ -68,7 +79,7 @@ function! Set_Active_Window_Width()
 endfunction
 nnoremap <C-v> :call Set_Active_Window_Width()<CR>
 " Resize window on entering
-autocmd WinEnter * if getbufvar(winbufnr(winnr()), '&buftype') != 'quickfix' | call Set_Active_Window_Width() | endif
+autocmd WinEnter * if winnr() != Get_QF_Window_Id() | call Set_Active_Window_Width() | endif
 
 " Add header directories to paths to allow open included files
 " using standard "gf" (go back is "Ctrl+^")
@@ -84,28 +95,27 @@ nnoremap GR :Ggrep <cword> <CR>
 
 " Auto window after grep (used by Ggrep from fugitive.vim plugin)
 function! QF_PostGrep()
-  if exists("g:Ggrep_pattern")
-    " Highlight search pattern
-    call matchadd('search', expand(g:Ggrep_pattern))
-    unlet g:Ggrep_pattern
-  endif
-  " Open QuickFix window
-  copen
+	" Highlight search pattern
+	if exists("g:Ggrep_pattern")
+		call matchadd('search', expand(g:Ggrep_pattern))
+		unlet g:Ggrep_pattern
+	endif
+	" Open QuickFix window
+	if Get_QF_Window_Id() == -1
+		copen
+		wincmd p
+	endif
 endfunction
 autocmd QuickFixCmdPost *grep* call QF_PostGrep()
 
 " Hide/show QuickFix window
 function QF_Toggle()
-	for i in range(1, winnr('$'))
-		let bnum = winbufnr(i)
-		if getbufvar(bnum, '&buftype') == 'quickfix'
-			if winnr('$') != 1
-				cclose
-			endif
-			return
-		endif
-	endfor
-	copen
+	if Get_QF_Window_Id() == -1
+		copen
+		wincmd p
+	elseif winnr('$') != 1
+		cclose
+	endif
 endfunction
 command CToggle call QF_Toggle()
 nnoremap q :CToggle<CR>
