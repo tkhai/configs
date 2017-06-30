@@ -81,6 +81,26 @@ nnoremap <C-v> :call Set_Active_Window_Width()<CR>
 " Resize window on entering
 autocmd WinEnter * if winnr() != Get_QF_Window_Id() | call Set_Active_Window_Width() | endif
 
+function! Goto_Next_Window()
+	if winnr('$') == 1
+		return
+	endif
+	let c = winnr() + 1
+	if c > winnr('$')
+		let c = 1
+	endif
+	if c == Get_QF_Window_Id()
+		let c += 1
+		if c > winnr('$')
+			let c = 1
+		endif
+	endif
+	exec c . "wincmd w"
+endfunction
+
+" Change window on <Tab>
+nnoremap <Tab> :call Goto_Next_Window()<CR>
+
 " Add header directories to paths to allow open included files
 " using standard "gf" (go back is "Ctrl+^")
 if isdirectory($PWD . "/.git")
