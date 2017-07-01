@@ -156,19 +156,23 @@ autocmd VimEnter * call VimEnter()
 " Show map page on <Ctrl-m>
 nnoremap <C-m> :silent !man <cword><CR>:redraw!<CR>
 
-" Build on <F2> key press
-function! Run_Make()
-	silent !echo "\# make -j20"
-	make! -j20 | silent !echo 
+" Open QuickFix window when compilation fails
+function! QF_PostMake()
 	"Get number of recognized error messages
 	let err = len(filter(getqflist(), 'v:val.valid'))
+	copen
 	if err != 0
-		copen
-		cc
+		cnf
+	else
+		normal GG
+		wincmd p
+		silent !echo -n ["Compiled]            "
 	endif
 endfunction
-command RunMake call Run_Make()
-nnoremap <F2> :RunMake<CR>
+autocmd QuickFixCmdPost *make* call QF_PostMake()
+" Build on <F2> key press
+nnoremap <F2> :AsyncRun make -j20<CR>
+let g:asyncrun_exit = ":let g:asyncrun_auto = 'make'"
 
 " Spell check on <F3> key press
 function Spell_Toggle()
