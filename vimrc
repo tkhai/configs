@@ -81,8 +81,9 @@ nnoremap <C-v> :call Set_Active_Window_Width()<CR>
 " Resize window on entering
 autocmd WinEnter * if winnr() != Get_QF_Window_Id() | call Set_Active_Window_Width() | endif
 
-" Open new tab on T
-nnoremap T :tabe<CR>
+" Open new tab on <t>, new tab with current file's dir <T>
+nnoremap t :tabe<CR>
+nnoremap T :tabe %<CR>
 " Goto next tab on <Alt-Right>, previous on <Alt-Left> (also <Tab> and <Shift-Tab>)
 nnoremap <A-Right> gt
 nnoremap <Tab> gt
@@ -134,16 +135,16 @@ nnoremap q :CToggle<CR>
 " Open quickfix window of full width
 autocmd FileType qf wincmd J
 
-" Shortcut to simplify navigation using unimpaired.vim plugin:
-" previous ',' and next '.' results
-map , [q
-map . ]q
+" QuickFix window navigation: previous row ',' and next row '.'
+map , :cprev<CR>
+map . :cnext<CR>
 
 " Tags list on <Ctrl-]> key press (<Ctrl-t> to go stack down)
 nnoremap <C-]> g<C-]>
 
 " Browse current file's directory (<Ctrl-6> to go back)
 nnoremap e :e %:p:h<CR>
+nnoremap E :e .<CR>
 
 " Remap Debian mapping from /usr/share/vim/vim80/defaults.vim
 function! VimEnter()
