@@ -74,32 +74,23 @@ endfunction
 
 " Make window size a partial of full size
 function! Set_Active_Window_Width()
-	let c = float2nr(&columns / 1.61803398875)
+	let c = float2nr(&columns / 5 * 4)
 	execute "vertical resize" . c
 endfunction
 nnoremap <C-v> :call Set_Active_Window_Width()<CR>
 " Resize window on entering
 autocmd WinEnter * if winnr() != Get_QF_Window_Id() | call Set_Active_Window_Width() | endif
 
-function! Goto_Next_Window()
-	if winnr('$') == 1
-		return
-	endif
-	let c = winnr() + 1
-	if c > winnr('$')
-		let c = 1
-	endif
-	if c == Get_QF_Window_Id()
-		let c += 1
-		if c > winnr('$')
-			let c = 1
-		endif
-	endif
-	exec c . "wincmd w"
-endfunction
-
-" Change window on <Tab>
-nnoremap <Tab> :call Goto_Next_Window()<CR>
+" Open new tab on T
+nnoremap T :tabe<CR>
+" Goto next tab on <Alt-Right>, previous on <Alt-Left> (also <Tab> and <Shift-Tab>)
+nnoremap <A-Right> gt
+nnoremap <Tab> gt
+nnoremap <A-Left> gT
+nnoremap <S-Tab> gT
+" Move tab left <Alt-Shift-Left> or right <Alt-Shift-Right>
+nnoremap <silent> <A-S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+nnoremap <silent> <A-S-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 
 " Add header directories to paths to allow open included files
 " using standard "gf" (go back is "Ctrl+^")
