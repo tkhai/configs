@@ -81,9 +81,9 @@ nnoremap <C-v> :call Set_Active_Window_Width()<CR>
 " Resize window on entering
 autocmd WinEnter * if winnr() != Get_QF_Window_Id() | call Set_Active_Window_Width() | endif
 
-" Open new tab on <t>, new tab with current file's dir <T>
-nnoremap t :tabe<CR>
-nnoremap T :tabe %<CR>
+" Open new tab with current file's dir <t>, new tab with working dir <T>
+nnoremap t :tabe %:p:h<CR>
+nnoremap T :tabe .<CR>
 " Goto next tab on <Alt-Right>, previous on <Alt-Left> (also <Tab> and <Shift-Tab>)
 nnoremap <A-Right> gt
 nnoremap <Tab> gt
