@@ -61,6 +61,13 @@ set viminfo='20,<1000
 let g:netrw_list_hide = '^\./$'
 let g:netrw_hide = 1
 
+" Highlight of AsyncRun exit messages
+hi AsyncRunFail ctermfg=124 guifg=#942f1f
+hi AsyncRunOK ctermfg=LightGreen guifg=#558C00
+" Echo exit status of AsyncRun command
+let g:asyncrun_exit = "if g:asyncrun_code != 0 | echohl AsyncRunFail | echo 'AsyncRun: [FAIL]' |
+			\ else | echohl AsyncRunOK | echo 'AsyncRun: [OK]' | endif | echohl Normal"
+
 " Returns winnr() of QuickFix window
 function! Get_QF_Window_Id()
 	for i in range(1, winnr('$'))
@@ -156,24 +163,25 @@ autocmd VimEnter * call VimEnter()
 " Show map page on <Ctrl-m>
 nnoremap <C-m> :silent !man <cword><CR>:redraw!<CR>
 
-" Open QuickFix window when compilation fails
+" Open QuickFix window after make finish
 function! QF_PostMake()
 	"Get number of recognized error messages
 	let err = len(filter(getqflist(), 'v:val.valid'))
 	copen
 	if err != 0
 		cnf
-		silent ! echo -en "\033[0;31mMake not completed: [FAIL]    \033[0m"
 	else
 		normal GG
 		wincmd p
-		silent ! echo -en "\033[0;32mMake completed: [OK]    \033[0m"
 	endif
 endfunction
 autocmd QuickFixCmdPost *make* call QF_PostMake()
+
+" Raise QuickFixCmdPost *make* event after async make
+let g:asyncrun_auto = "make"
+
 " Build on <F2> key press
 nnoremap <F2> :AsyncRun make -j20<CR>
-let g:asyncrun_exit = ":let g:asyncrun_auto = 'make'"
 
 " Spell check on <F3> key press
 function Spell_Toggle()
