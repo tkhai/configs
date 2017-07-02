@@ -163,10 +163,11 @@ function! QF_PostMake()
 	copen
 	if err != 0
 		cnf
+		silent ! echo -en "\033[0;31mMake not completed: [FAIL]    \033[0m"
 	else
 		normal GG
 		wincmd p
-		silent !echo -n ["Compiled]            "
+		silent ! echo -en "\033[0;32mMake completed: [OK]    \033[0m"
 	endif
 endfunction
 autocmd QuickFixCmdPost *make* call QF_PostMake()
