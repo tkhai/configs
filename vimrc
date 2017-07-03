@@ -64,9 +64,11 @@ let g:netrw_hide = 1
 " Highlight of AsyncRun exit messages
 hi AsyncRunFail ctermfg=124 guifg=#942f1f
 hi AsyncRunOK ctermfg=LightGreen guifg=#558C00
+" Do not silent AsyncRunEvents
+let g:asyncrun_silent = 0
 " Echo exit status of AsyncRun command
-let g:asyncrun_exit = "if g:asyncrun_code != 0 | echohl AsyncRunFail | echo 'AsyncRun: [FAIL]' |
-			\ else | echohl AsyncRunOK | echo 'AsyncRun: [OK]' | endif | echohl Normal"
+autocmd User AsyncRunStop if g:asyncrun_code != 0 | echohl AsyncRunFail | echo 'AsyncRun: [FAIL]' |
+			\ else | echohl AsyncRunOK | echo 'AsyncRun: [OK]' | endif | echohl Normal
 
 " Returns winnr() of QuickFix window
 function! Get_QF_Window_Id()
