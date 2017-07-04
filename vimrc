@@ -163,8 +163,8 @@ function! VimEnter()
 endfunction
 autocmd VimEnter * call VimEnter()
 
-" Show map page on <Ctrl-m>
-nnoremap <C-m> :silent !man <cword><CR>:redraw!<CR>
+" Silent man pages on <K> key press
+nnoremap <expr> K ":<C-u>silent !man -S " . (v:count ? v:count : "2,3,7,4,5,1,8,9") . " <cword><CR>:redraw!<CR>"
 
 " Open QuickFix window after make finish
 function! QF_PostMake()
