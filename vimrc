@@ -214,8 +214,9 @@ nnoremap <F5> :call GitLog_With_Prefix("%")<CR>
 nnoremap <S-F5> :call GitLog_With_Prefix("--full-diff " . "%")<CR>
 nnoremap <A-S-F5> :call GitLog_With_Prefix(".")<CR>
 
-" git blame on <F6> key press
-nnoremap <F6> :silent !echo "\# git blame %"<CR>:!git blame %<CR>:silent !echo<CR>:redraw!<CR>
+" git blame on <F6> key press (and scroll current screen lines)
+nnoremap <silent> <F6> :let y = (line(".") - screenrow() + 1)<CR>
+			\ :silent !echo "\# git blame %"<CR>:exec "!git blame % \| less +" . y ."g"<CR>:silent !echo<CR>:redraw!<CR>
 
 " Commit SOB
 nnoremap me sSigned-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>
