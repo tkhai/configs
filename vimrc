@@ -110,9 +110,9 @@ if isdirectory($PWD . "/.git")
 endif
 
 " Grep current word on "gr", "Gr" and "GR" key press combinations
-nnoremap gr :let @/=""<CR>:set hls<CR>:let g:Ggrep_pattern='<C-R><C-W>'<CR>:Ggrep -w <C-R><C-W> --
-nnoremap Gr :let @/=""<CR>:set hls<CR>let g:Ggrep_pattern='<C-R><C-W>'<CR>:Ggrep <C-R><C-W> --
-nnoremap GR :let @/=""<CR>:Ggrep <cword> <CR>
+nnoremap gr :let @/=""<CR>:set hls<CR>:let g:Ggrep_pattern='<C-R><C-W>'<CR>:Ggrep -w <C-R><C-W> -- 
+nnoremap Gr :let @/=""<CR>:set hls<CR>:let g:Ggrep_pattern='<C-R><C-W>'<CR>:Ggrep <C-R><C-W> -- 
+nnoremap GR :let @/=""<CR>:set hls<CR>:let g:Ggrep_pattern='<C-R><C-W>'<CR>:Ggrep <cword><CR>
 
 " Auto window after grep (used by Ggrep from fugitive.vim plugin)
 function! QF_PostGrep()
