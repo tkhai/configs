@@ -153,7 +153,7 @@ map . :cnext<CR>
 nnoremap <C-]> g<C-]>
 
 " Browse current file's directory (<Ctrl-6> to go back)
-nnoremap e :e %:p:h<CR>
+nnoremap e :e %:h<CR>
 nnoremap E :e .<CR>
 
 " Remap Debian mapping from /usr/share/vim/vim80/defaults.vim
