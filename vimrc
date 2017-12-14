@@ -221,4 +221,5 @@ nnoremap <silent> <F6> :let y = (line(".") - screenrow() + 1)<CR>
 			\ :silent !echo<CR>:redraw!<CR>
 
 " Commit SOB
-nnoremap me sSigned-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>
+nnoremap <C-k> oSigned-off-by: Kirill Tkhai <ktkhai@virtuozzo.com><ESC>0
+inoremap <C-k> <CR><C-R>="Signed-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>"<CR>
