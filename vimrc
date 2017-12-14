@@ -119,7 +119,7 @@ function! QF_PostGrep()
 	" Highlight search pattern
 	if exists("g:Ggrep_pattern")
 		" call matchadd('search', expand(g:Ggrep_pattern))
-		let @/ = g:Ggrep_pattern
+		let @/='\<' . g:Ggrep_pattern . '\>'
 		unlet g:Ggrep_pattern
 	endif
 	" Open QuickFix window
