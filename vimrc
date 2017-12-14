@@ -110,7 +110,7 @@ if isdirectory($PWD . "/.git")
 endif
 
 " Grep current word on "gr", "Gr" and "GR" key press combinations
-nnoremap gr :let @/=""<CR>:set hls<CR>:let g:Ggrep_pattern='<C-R><C-W>'<CR>:Ggrep -w <C-R><C-W> -- 
+nnoremap gr :let @/=""<CR>:set hls<CR>:let g:Ggrep_pattern='\<' . '<C-R><C-W>' . '\>'<CR>:Ggrep -w <C-R><C-W> -- 
 nnoremap Gr :let @/=""<CR>:set hls<CR>:let g:Ggrep_pattern='<C-R><C-W>'<CR>:Ggrep <C-R><C-W> -- 
 nnoremap GR :let @/=""<CR>:set hls<CR>:let g:Ggrep_pattern='<C-R><C-W>'<CR>:Ggrep <cword><CR>
 
@@ -119,7 +119,7 @@ function! QF_PostGrep()
 	" Highlight search pattern
 	if exists("g:Ggrep_pattern")
 		" call matchadd('search', expand(g:Ggrep_pattern))
-		let @/='\<' . g:Ggrep_pattern . '\>'
+		let @/=g:Ggrep_pattern
 		unlet g:Ggrep_pattern
 	endif
 	" Open QuickFix window
