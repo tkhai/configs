@@ -95,8 +95,10 @@ nnoremap t :tabe %:p:h<CR>
 nnoremap T :tabe .<CR>
 " Goto next tab on <Alt-Right>, previous on <Alt-Left> (also <Tab> and <Shift-Tab>)
 nnoremap <A-Right> gt
+inoremap <A-Right> <Esc>gti
 nnoremap <Tab> gt
 nnoremap <A-Left> gT
+inoremap <A-Left> <Esc>gTi
 nnoremap <S-Tab> gT
 " Move tab left <Alt-Shift-Left> or right <Alt-Shift-Right>
 nnoremap <silent> <A-S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
