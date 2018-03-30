@@ -154,6 +154,9 @@ map . :cnext<CR>
 " Tags list on <Ctrl-]> key press (<Ctrl-t> to go stack down)
 nnoremap <C-]> g<C-]>
 
+" Custom tag
+nnoremap s :ts 
+
 " Browse current file's directory (<Ctrl-6> to go back)
 nnoremap <expr> e ":e " . (expand('%') != '' ? expand('%:h') : ".") . "<CR>"
 nnoremap E :e .<CR>
