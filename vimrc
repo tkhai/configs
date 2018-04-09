@@ -203,6 +203,7 @@ function Spell_Toggle()
 endfunction
 command SpellToggle call Spell_Toggle()
 nnoremap <F3> :SpellToggle<CR>
+inoremap <F3> <Esc>:SpellToggle<CR>i
 
 " git diff on <F4> key press
 nnoremap <F4> :silent !echo "\# git diff"<CR>:silent !git --no-pager diff --color=always \| less -R<CR>:silent !echo<CR>:redraw!<CR>
