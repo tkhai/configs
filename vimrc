@@ -157,6 +157,10 @@ nnoremap <C-]> g<C-]>
 " Custom tag
 nnoremap s :ts 
 
+" Start and End of function
+nnoremap [[ ?{<CR>w99[{
+nnoremap ]] /}<CR>b99]}
+
 " Browse current file's directory (<Ctrl-6> to go back)
 nnoremap <expr> e ":e " . (expand('%') != '' ? expand('%:h') : ".") . "<CR>"
 nnoremap E :e .<CR>
