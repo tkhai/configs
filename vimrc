@@ -158,8 +158,8 @@ nnoremap <C-]> g<C-]>
 nnoremap s :ts 
 
 " Start and end of current function and next function
-nnoremap [[ ?{<CR>w99[{
-nnoremap ]] /}<CR>b99]}
+nnoremap [[ 99[{
+nnoremap ]] 99]}
 nnoremap [] j0[[%/{<CR>
 nnoremap ][ k$][%?}<CR>
 
