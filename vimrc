@@ -170,12 +170,12 @@ function! GetPrimitiveName()
   let prototype = getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bWn'))
   call winrestview(winview)
 
-  let func = substitute(prototype, '.* \(\w\+\)(.*[),]$', '\1()', 'g')
+  let func = substitute(prototype, '^.*[ *]\(\w\+\)(.*[),]$', '\1()', 'g')
   if func != prototype
     return func
   endif
 
-  let cut_struct = substitute(prototype, 'struct ', '', 'g')
+  let cut_struct = substitute(prototype, 'struct.*{', '', 'g')
   if (cut_struct != prototype)
     return prototype
   endif
