@@ -167,8 +167,23 @@ nnoremap ][ k$][%?}<CR>
 function! GetPrimitiveName()
   let winview = winsaveview()
   normal $
-  let prototype = getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bWn'))
+  let row = search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW')
+  let prototype = getline(row)
+
+  if row > 0 && search("{") > 0
+    normal %
+    if row != line(".")
+      let row = line(".")
+    else
+      let row = 0
+    endif
+  endif
+
   call winrestview(winview)
+
+  if row < line(".")
+    return ""
+  endif
 
   let func = substitute(prototype, '^.*[ *]\(\w\+\)(.*[),]$', '\1()', 'g')
   if func != prototype
