@@ -163,6 +163,28 @@ nnoremap ]] 99]}
 nnoremap [] j0[[%/{<CR>
 nnoremap ][ k$][%?}<CR>
 
+" Return current function/structure name
+function! GetPrimitiveName()
+  let winview = winsaveview()
+  normal $
+  let prototype = getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bWn'))
+  call winrestview(winview)
+
+  let func = substitute(prototype, '.* \(\w\+\)(.*[),]$', '\1()', 'g')
+  if func != prototype
+    return func
+  endif
+
+  let cut_struct = substitute(prototype, 'struct ', '', 'g')
+  if (cut_struct != prototype)
+    return prototype
+  endif
+  return ""
+endfun
+
+" Standard status bar with current function/struct name
+set statusline=%<%f\ %h%m%r\ %{GetPrimitiveName()}%=%-14.(%l,%c%V%)\ %P
+
 " Browse current file's directory (<Ctrl-6> to go back)
 nnoremap <expr> e ":e " . (expand('%') != '' ? expand('%:h') : ".") . "<CR>"
 nnoremap E :e .<CR>
