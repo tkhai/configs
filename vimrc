@@ -193,8 +193,40 @@ function! GetPrimitiveName()
   return ""
 endfun
 
+function! ShowDefines()
+  let winview = winsaveview()
+  let result = ""
+
+  let prev_row = line(".")
+  let open_bkt = 0
+  while 1
+     keepjump normal [#
+     let row = line(".")
+     if row == prev_row
+       break
+     endif
+
+     let str = getline(row)
+     if str[:2] == "#if" && open_bkt == 1
+       let open_bkt = 0
+       let str = "(" . str
+     elseif str[:2] == "#el" && open_bkt == 0
+       let open_bkt = 1
+       let str = str . ")"
+     elseif open_bkt == 0
+       let str = "(" . str . ")"
+     endif
+
+     let result = str . " " . result
+     let prev_row = row
+  endwhile
+
+  call winrestview(winview)
+  return result
+endfun
+
 " Standard status bar with current function/struct name
-set statusline=%<%f\ %h%m%r\ %{GetPrimitiveName()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r\ %{GetPrimitiveName()}\ %{ShowDefines()}%=%-14.(%l,%c%V%)\ %P
 
 " Browse current file's directory (<Ctrl-6> to go back)
 nnoremap <expr> e ":e " . (expand('%') != '' ? expand('%:h') : ".") . "<CR>"
