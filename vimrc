@@ -172,11 +172,7 @@ function! GetPrimitiveName()
 
   if row > 0 && search("{") > 0
     keepjump normal %
-    if row != line(".")
-      let row = line(".")
-    else
-      let row = 0
-    endif
+    let row = line(".")
   endif
 
   call winrestview(winview)
