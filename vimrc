@@ -171,7 +171,7 @@ function! GetPrimitiveName()
   let prototype = getline(row)
 
   if row > 0 && search("{") > 0
-    normal %
+    keepjump normal %
     if row != line(".")
       let row = line(".")
     else
