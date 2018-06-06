@@ -193,7 +193,7 @@ function! GetPrimitiveName()
   return ""
 endfun
 
-function! ShowDefines()
+function! GetDefines()
   let winview = winsaveview()
   let result = ""
 
@@ -225,8 +225,17 @@ function! ShowDefines()
   return result
 endfun
 
-" Standard status bar with current function/struct name
-set statusline=%<%f\ %h%m%r\ %{GetPrimitiveName()}\ %{ShowDefines()}%=%-14.(%l,%c%V%)\ %P
+function! GetPositionInCode()
+  let primitive = GetPrimitiveName()
+  let defines = GetDefines()
+  if primitive != "" && defines != ""
+    let primitive = primitive . "  "
+  endif
+  return primitive . defines
+endfunc
+
+" Standard status bar with current position in code
+set statusline=%<%f\ %h%m%r\ %{GetPositionInCode()}%=%-14.(%l,%c%V%)\ %P
 
 " Browse current file's directory (<Ctrl-6> to go back)
 nnoremap <expr> e ":e " . (expand('%') != '' ? expand('%:h') : ".") . "<CR>"
