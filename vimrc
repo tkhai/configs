@@ -181,7 +181,7 @@ function! GetPrimitiveName()
     return ""
   endif
 
-  let func = substitute(prototype, '^.*[ *]\(\w\+\)(.*[),]$', '\1()', 'g')
+  let func = substitute(prototype, '^\(\|.*[ *]\)\(\w\+\)(.*[),]$', '\2()', 'g')
   if func != prototype
     return func
   endif
