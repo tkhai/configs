@@ -195,12 +195,16 @@ endfun
 
 function! GetDefines()
   let winview = winsaveview()
+  let l:belloff = &belloff
   let result = ""
 
   let prev_row = line(".")
   let open_bkt = 0
   while 1
+     set belloff=all
      keepjump normal [#
+     let &belloff = l:belloff
+
      let row = line(".")
      if row == prev_row
        break
