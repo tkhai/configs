@@ -87,8 +87,8 @@ function! Set_Active_Window_Width()
 	execute "vertical resize" . c
 endfunction
 nnoremap <C-v> :call Set_Active_Window_Width()<CR>
-" Resize window on entering
-autocmd WinEnter * if winnr() != Get_QF_Window_Id() | call Set_Active_Window_Width() | endif
+"" Resize window on entering
+"autocmd WinEnter * if winnr() != Get_QF_Window_Id() | call Set_Active_Window_Width() | endif
 
 " Open new tab with current file's dir <t>, new tab with working dir <T>
 nnoremap t :tabe %:p:h<CR>
