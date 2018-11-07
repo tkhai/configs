@@ -230,6 +230,9 @@ function! GetDefines()
 endfun
 
 function! GetPositionInCode()
+  if &filetype != 'c' && &filetype != 'cpp'
+    return ""
+  endif
   let primitive = GetPrimitiveName()
   let defines = GetDefines()
   if primitive != "" && defines != ""
