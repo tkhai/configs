@@ -233,11 +233,13 @@ function! GetPositionInCode()
   if &filetype != 'c' && &filetype != 'cpp'
     return ""
   endif
+  set lazyredraw
   let primitive = GetPrimitiveName()
   let defines = GetDefines()
   if primitive != "" && defines != ""
     let primitive = primitive . "  "
   endif
+  set nolazyredraw
   return primitive . defines
 endfunc
 
