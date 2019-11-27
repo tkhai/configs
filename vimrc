@@ -274,23 +274,11 @@ function! TagFunc(pattern, flags, info)
 			endif
 		endif
 
-		" Structures are above other kinds; functions are after them.
-		" Prototypes does not introduce much usefull info, but keep
-		" them together with functions as they are about the same
-		" logical entity. This looks nice.
-
+		" Structures are above other kinds.
 		if k1 != k2
 			if k1 == 's'
 				return -1
 			elseif k2 == 's'
-				return 1
-			elseif k1 == 'f'
-				return -1
-			elseif k2 == 'f'
-				return 1
-			elseif k1 == 'p'
-				return -1
-			elseif k2 == 'p'
 				return 1
 			endif
 		endif
