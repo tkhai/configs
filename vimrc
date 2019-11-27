@@ -264,8 +264,6 @@ function! TagFunc(pattern, flags, info)
 		let f2 = a:item2['filename']
 		let k1 = a:item1['kind']
 		let k2 = a:item2['kind']
-		let s1 = a:item1['static']
-		let s2 = a:item2['static']
 
 		" Current file has more priority:
 		if f1 != f2
@@ -298,13 +296,7 @@ function! TagFunc(pattern, flags, info)
 		endif
 
 		" Sort the rest in file name order
-		if f1 >= f2
-			return 1
-		elseif f1 <= f2
-			return -1
-		endif
-
-		return 0
+		return f1 > f2 ? 1 : f1 < f2 ? -1 : 0
 	endfunction
 
 	let result = taglist('^' . a:pattern . '$')
