@@ -257,6 +257,63 @@ function! VimEnter()
 endfunction
 autocmd VimEnter * call VimEnter()
 
+" Redefine tagfunc to show structures first in :ts output
+function! TagFunc(pattern, flags, info)
+	function! CompareTags(item1, item2)
+		let f1 = a:item1['filename']
+		let f2 = a:item2['filename']
+		let k1 = a:item1['kind']
+		let k2 = a:item2['kind']
+		let s1 = a:item1['static']
+		let s2 = a:item2['static']
+
+		" Current file has more priority:
+		if f1 != f2
+			if f1 == expand("%")
+				return -1
+			elseif f2 == expand("%")
+				return 1
+			endif
+		endif
+
+		" Structures are above other kinds; functions are after them.
+		" Prototypes does not introduce much usefull info, but keep
+		" them together with functions as they are about the same
+		" logical entity. This looks nice.
+
+		if k1 != k2
+			if k1 == 's'
+				return -1
+			elseif k2 == 's'
+				return 1
+			elseif k1 == 'f'
+				return -1
+			elseif k2 == 'f'
+				return 1
+			elseif k1 == 'p'
+				return -1
+			elseif k2 == 'p'
+				return 1
+			endif
+		endif
+
+		" Sort the rest in file name order
+		if f1 >= f2
+			return 1
+		elseif f1 <= f2
+			return -1
+		endif
+
+		return 0
+	endfunction
+
+	let result = taglist('^' . a:pattern . '$')
+	call sort(result, "CompareTags")
+
+	return result
+endfunc
+set tagfunc=TagFunc
+
 " Silent man pages on <K> key press
 nnoremap <expr> K ":<C-u>silent !man -S " . (v:count ? v:count : "2,3,7,4,5,1,8,9") . " <cword><CR>:redraw!<CR>"
 
