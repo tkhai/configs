@@ -287,6 +287,11 @@ function! TagFunc(pattern, flags, info)
 		return f1 > f2 ? 1 : f1 < f2 ? -1 : 0
 	endfunction
 
+	" tagfunc in insert mode (during auto-complete) is slow
+	if stridx(a:flags, 'i') != -1
+		return v:null
+	endif
+
 	let result = taglist('^' . a:pattern . '$')
 	call sort(result, "CompareTags")
 
