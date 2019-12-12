@@ -319,8 +319,13 @@ autocmd QuickFixCmdPost *make* call QF_PostMake()
 " Raise QuickFixCmdPost *make* event after async make
 let g:asyncrun_auto = "make"
 
+function! In_LinuxKernel_Dir()
+	let top_str = system("head -n1 README 2>&1")
+	return top_str ==# "Linux kernel\n" ? 1 : 0
+endfunction
+
 " Build on <F2> key press
-nnoremap <F2> :AsyncRun make -j20<CR>
+nnoremap <expr> <F2> ":AsyncRun make " . (In_LinuxKernel_Dir() ? "bzImage modules" : "all") . " -j20<CR>"
 
 " Spell check on <F3> key press
 function Spell_Toggle()
