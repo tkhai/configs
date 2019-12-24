@@ -166,12 +166,15 @@ nnoremap ][ k$][%?}<CR>
 " Return current function/structure name
 function! GetPrimitiveName()
   let winview = winsaveview()
+  let l:belloff = &belloff
   normal $
   let row = search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW')
   let prototype = getline(row)
 
   if row > 0 && search("{") > 0
+    set belloff=all
     keepjump normal %
+    let &belloff = l:belloff
     let row = line(".")
   endif
 
