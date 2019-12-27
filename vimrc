@@ -349,8 +349,10 @@ nnoremap <A-S-F5> :call GitLog_With_Prefix(".")<CR>
 " git blame on <F6> key press (and scroll current screen lines)
 nnoremap <silent> <F6> :let y = (line(".") - screenrow() + 1)<CR>
 			\ :silent !echo "\# git blame %"<CR>
-			\ :exec "!paste -d ' ' <(git blame --date=format:\\%Y-\\%m-\\%d % \| sed 's/\\([0-9]*\\)).*/\\1)/') <(source-highlight --failsafe --infer-lang -f esc --style-file=esc.style -i %) \| less -R +" . y ."g"<CR>
+			\ :exec "!paste -d ' ' <(git blame --date=short % \| sed 's/\\([0-9]*\\)).*/\\1)/') <(source-highlight --failsafe --infer-lang -f esc --style-file=esc.style -i %) \| less -R +" . y ."g"<CR>
 			\ :silent !echo<CR>:redraw!<CR>
+" Gblame interface (navigation: O -- open commit in new tab, :q -- close commit)
+nnoremap <S-F6> :Gblame<CR>
 
 " Commit SOB
 nnoremap <C-k> oSigned-off-by: Kirill Tkhai <ktkhai@virtuozzo.com><ESC>0
