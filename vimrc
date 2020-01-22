@@ -239,6 +239,7 @@ set statusline=%<%f\ %h%m%r\ %{GetPositionInCode()}%=%-14.(%l,%c%V%)\ %P
 " Browse current file's directory (<Ctrl-6> to go back)
 nnoremap <expr> e ":e " . (expand('%') != '' ? expand('%:h') : ".") . "<CR>"
 nnoremap E :e .<CR>
+nnoremap W :q<CR>
 
 " Remap Debian mapping from /usr/share/vim/vim80/defaults.vim
 function! VimEnter()
