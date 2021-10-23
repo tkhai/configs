@@ -69,11 +69,11 @@ function! Get_QF_Window_Id()
 endfunction
 
 " Make window size a partial of full size
-function! Set_Active_Window_Width()
-	let c = float2nr(&columns / 5 * 4)
-	execute "vertical resize" . c
-endfunction
-nnoremap <C-v> :call Set_Active_Window_Width()<CR>
+"function! Set_Active_Window_Width()
+"	let c = float2nr(&columns / 5 * 4)
+"	execute "vertical resize" . c
+"endfunction
+"nnoremap <C-v> :call Set_Active_Window_Width()<CR>
 "" Resize window on entering
 "autocmd WinEnter * if winnr() != Get_QF_Window_Id() | call Set_Active_Window_Width() | endif
 
@@ -293,6 +293,9 @@ set tagfunc=TagFunc
 " Silent man pages on <K> key press
 nnoremap <expr> K ":<C-u>silent !man -S " . (v:count ? v:count : "2,3,7,4,5,1,8,9") . " <cword><CR>:redraw!<CR>"
 
+" + to add one more search pattern
+nnoremap + :let @/=@/ . '\\|\<' . "<C-R><C-W>" . '\>'<CR>:echo @/<CR>
+
 " Open QuickFix window after make finish
 function! QF_PostMake()
 	"Get number of recognized error messages
@@ -358,3 +361,13 @@ nnoremap <S-F6> :Gblame<CR>
 " Commit SOB
 nnoremap <C-k> oSigned-off-by: Kirill Tkhai <ktkhai@virtuozzo.com><ESC>0
 inoremap <C-k> <End><CR><C-R>="Signed-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>"<CR><Home>
+
+" pr_err("%s %d\n", __func__, __LINE__);
+nnoremap <C-s> opr_err("%s %d\n", __func__, __LINE__);<ESC>0
+inoremap <C-s> <End><CR><C-R>="pr_err(\"%s %d\\n\", __func__, __LINE__);"<CR><Home>
+
+" C-a and C-e - jump to beginning and end of line
+inoremap <C-a> <C-o>0
+nnoremap <C-a> 0
+inoremap <C-e> <C-o>$
+nnoremap <C-e> $
