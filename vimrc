@@ -369,5 +369,7 @@ inoremap <C-s> <End><CR><C-R>="pr_err(\"%s %d\\n\", __func__, __LINE__);"<CR><Ho
 " C-a and C-e - jump to beginning and end of line
 inoremap <C-a> <C-o>0
 nnoremap <C-a> 0
+vnoremap <C-a> 0
 inoremap <C-e> <C-o>$
 nnoremap <C-e> $
+vnoremap <C-e> $
