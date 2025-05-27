@@ -11,10 +11,6 @@ runtime! debian.vim
 
 syntax on
 
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
-"set background=dark
-
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
 if has("autocmd")
@@ -27,6 +23,8 @@ if has("autocmd")
   filetype plugin indent on
 endif
 
+packadd fugitive
+
 set nocompatible	" Compatibility with VI is not needed.
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -36,6 +34,35 @@ set ruler
 set hls
 set modeline
 set ls=2
+
+if filereadable(".clang-format")
+  let tabs=system("grep '^IndentWidth:' .clang-format | sed 's/IndentWidth: //g'")
+  let &ts=tabs
+  let never_use_tabs=system("grep '^UseTab:\ Never' .clang-format")
+  if !empty(never_use_tabs)
+    let &sw=tabs
+    set expandtab
+  endif
+  set nofixendofline
+endif
+
+if filereadable(".clangd")
+  "Plugin vim-plug: auto install plugins (maybe unsafe updates)
+  "call plug#begin()
+  "Plug 'prabirshrestha/vim-lsp'
+  "Plug 'mattn/vim-lsp-settings'
+  "call plug#end()
+
+  packadd vim-lsp
+  packadd vim-lsp-settings
+
+  let g:lsp_inlay_hints_mode = {
+          \  'normal': ['suspended'],
+          \}
+  let g:lsp_inlay_hints_enabled=1
+  let g:lsp_diagnostics_enabled=0
+  let g:lsp_document_code_action_signs_enabled=0
+endif
 
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
@@ -180,6 +207,14 @@ function! GetPrimitiveName()
   if (cut_struct != prototype)
     return prototype
   endif
+
+  let cut_class = substitute(prototype, 'class ', '', 'g')
+  let cut_semicolon = substitute(prototype, ';', '', 'g')
+  if (cut_class != prototype && cut_semicolon == prototype)
+    let name=substitute(prototype, ':.*', '', 'g')
+    return name . " {"
+  endif
+
   return ""
 endfun
 
@@ -220,7 +255,7 @@ function! GetDefines()
 endfun
 
 function! GetPositionInCode()
-  if &filetype != 'c' && &filetype != 'cpp'
+  if &filetype != 'c' && &filetype != 'cpp' && &filetype != 'hpp' && &filetype != 'h'
     return ""
   endif
   set lazyredraw
@@ -242,11 +277,10 @@ nnoremap E :e .<CR>
 nnoremap W :q<CR>
 
 " Remap Debian mapping from /usr/share/vim/vim80/defaults.vim
-function! VimEnter()
+if mapcheck('Q') !=# ''
 	unmap Q
-	map Q :qa<CR>
-endfunction
-autocmd VimEnter * call VimEnter()
+endif
+map Q :qa<CR>
 
 " Redefine tagfunc to show structures first in :ts output
 function! TagFunc(pattern, flags, info)
@@ -358,9 +392,26 @@ nnoremap <silent> <F6> :let y = (line(".") - screenrow() + 1)<CR>
 " Gblame interface
 nnoremap <S-F6> :Gblame<CR>
 
+" Clang-format on F9
+nnoremap <F9> :LspDocumentFormat<CR>
+inoremap <F9> <Esc>:LspDocumentFormat<CR>i
+
+" Inlay hints <F12> key press
+function InlayHintsToggle()
+    if g:lsp_inlay_hints_mode == {'normal': ['suspended']}
+		let g:lsp_inlay_hints_mode={}
+	else
+		let g:lsp_inlay_hints_mode={'normal': ['suspended']}
+    endif
+endfunction
+
+command InlayHintsToggle call InlayHintsToggle()
+nnoremap <F12> :InlayHintsToggle<CR>
+inoremap <F12> <Esc>:InlayHintsToggle<CR>i
+
 " Commit SOB
-nnoremap <C-k> oSigned-off-by: Kirill Tkhai <ktkhai@virtuozzo.com><ESC>0
-inoremap <C-k> <End><CR><C-R>="Signed-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>"<CR><Home>
+nnoremap <C-k> oSigned-off-by: Kirill Tkhai <tkhai@ya.ru><ESC>0
+inoremap <C-k> <End><CR><C-R>="Signed-off-by: Kirill Tkhai <tkhai@ya.ru>"<CR><Home>
 
 " pr_err("%s %d\n", __func__, __LINE__);
 nnoremap <C-s> opr_err("%s %d\n", __func__, __LINE__);<ESC>0
